@@ -1,0 +1,15 @@
+OBJECT_FILES = objs/ftsystem.o objs/ftbase.o objs/ftinit.o objs/autofit.o objs/ftbitmap.o objs/ftglyph.o objs/truetype.o objs/type1.o objs/cff.o objs/type1cid.o objs/pfr.o objs/type42.o objs/winfnt.o objs/ftgzip.o objs/ftlzw.o objs/pcf.o objs/psaux.o objs/psnames.o objs/pshinter.o objs/raster.o objs/sfnt.o objs/bdf.o objs/ftdebug.o objs/smooth.o objs/ftlcdfil.o objs/ftfntfmt.o
+
+all: clean static dynamic
+
+static:
+	ar rc ../app/staticLIB/libfreetype.a $(OBJECT_FILES)
+
+dynamic:
+	gcc -shared $(OBJECT_FILES) -o ../app/dynamicLIB/libfreetype.so
+	
+blob: static
+
+clean:
+	rm -f -d ../app/staticLIB/libfreetype.a
+	rm -f -d ../app/dynamicLIB/libfreetype.so
