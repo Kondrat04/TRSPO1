@@ -1,0 +1,15 @@
+OBJECT_FILES=adler32.o crc32.o deflate.o infback.o inffast.o inflate.o inftrees.o trees.o zutil.o compress.o uncompr.o
+
+all: clean static dynamic
+
+static:
+	ar rc ../app/staticLIB/libzlib.a $(OBJECT_FILES)
+	
+dynamic:
+	gcc -shared $(OBJECT_FILES) -o ../app/dynamicLIB/libzlib.so
+	
+blob: static
+
+clean:
+	rm -f -d ../app/staticLIB/libzlib.a
+	rm -f -d ../app/dynamicLIB/libzlib.so
